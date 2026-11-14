@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><script>(function(){try{if(window.__nfAudioHook)return;var AC=window.AudioContext||window.webkitAudioContext;if(!AC||!window.AudioNode)return;window.__nfAudioHook=true;window.__nfAudioStreams=window.__nfAudioStreams||[];var ensureTap=function(c){if(!c.__nfTap){c.__nfTap=c.createMediaStreamDestination();window.__nfAudioStreams.push(c.__nfTap.stream);}return c.__nfTap;};var oc=window.AudioNode.prototype.connect;window.AudioNode.prototype.connect=function(d){var r=oc.apply(this,arguments);try{var c=this.context;if(c&&d===c.destination)oc.call(this,ensureTap(c));}catch(e){}return r;};var wrap=function(C){var P=function(){var c=Reflect.construct(C,arguments,P);try{ensureTap(c);}catch(e){}return c;};P.prototype=C.prototype;return P;};if(window.AudioContext)window.AudioContext=wrap(window.AudioContext);if(window.webkitAudioContext)window.webkitAudioContext=wrap(window.webkitAudioContext);}catch(e){}})();</script>
+<head><base href="https://nostaligafun.pages.dev/games/games-accualy/ANDROID/"><script>(function(){try{if(window.__nfAudioHook)return;var AC=window.AudioContext||window.webkitAudioContext;if(!AC||!window.AudioNode)return;window.__nfAudioHook=true;window.__nfAudioStreams=window.__nfAudioStreams||[];var ensureTap=function(c){if(!c.__nfTap){c.__nfTap=c.createMediaStreamDestination();window.__nfAudioStreams.push(c.__nfTap.stream);}return c.__nfTap;};var oc=window.AudioNode.prototype.connect;window.AudioNode.prototype.connect=function(d){var r=oc.apply(this,arguments);try{var c=this.context;if(c&&d===c.destination)oc.call(this,ensureTap(c));}catch(e){}return r;};var wrap=function(C){var P=function(){var c=Reflect.construct(C,arguments,P);try{ensureTap(c);}catch(e){}return c;};P.prototype=C.prototype;return P;};if(window.AudioContext)window.AudioContext=wrap(window.AudioContext);if(window.webkitAudioContext)window.webkitAudioContext=wrap(window.webkitAudioContext);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nostalgia.loader</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1a1a1a;
+  color: #fff;
+}
+
+/* Iframe styling */
+iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  display: none; /* hide initially */
+}
+
+/* Loading overlay */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Loading text */
+#loader h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 40px;
+  background: linear-gradient(90deg, #ff4c4c, #fffc4c, #4cffc1, #4c6eff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradient 3s ease infinite;
+}
+
+/* Fancy animated progress bar container */
+.progress-container {
+  width: 60%;
+  height: 20px;
+  border-radius: 10px;
+  background: #333;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Animated bar inside the container */
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff4c4c, #fffc4c, #4cffc1, #4c6eff);
+  background-size: 400% 100%;
+  animation: loadingBar 2s linear infinite;
+}
+
+/* Gradient animation for text */
+@keyframes textGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Progress bar animation */
+@keyframes loadingBar {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <h1>Loading Minecraft</h1>
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+</div>
+
+<iframe src="./minecraft_data/minecraft.html" allow="pointer-lock; fullscreen" allowfullscreen id="minecraftFrame"></iframe>
+
+<script>
+const iframe = document.getElementById('minecraftFrame');
+const loader = document.getElementById('loader');
+const progressBar = document.getElementById('progressBar');
+
+let width = 0;
+const interval = setInterval(() => {
+  if (width < 90) { // grow to 90% while waiting
+    width += Math.random() * 2; // random speed for realism
+    progressBar.style.width = width + '%';
+  }
+}, 50);
+
+iframe.addEventListener('load', () => {
+  clearInterval(interval);
+  progressBar.style.width = '100%'; // fill completely
+  setTimeout(() => {
+    loader.style.display = 'none';
+    iframe.style.display = 'block';
+  }, 300); // short delay for smooth finish
+});
+</script>
+
+</body>
+</html>
